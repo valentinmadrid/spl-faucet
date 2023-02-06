@@ -16,7 +16,14 @@ class Withdrawer(Account):
   last_withdraw: i64
 
 @instruction
-def initialize_faucet(mint: TokenMint, faucet: Empty[Faucet], signer: Signer, faucet_account: Empty[TokenAccount], decimals: u64, max_withdraw: u64):
+def initialize_faucet(
+  mint: TokenMint,
+  faucet: Empty[Faucet],
+  signer: Signer, 
+  faucet_account: Empty[TokenAccount], 
+  decimals: u64, 
+  max_withdraw: u64
+  ):
   bump = faucet.bump()
   faucet = faucet.init(
     payer = signer,
@@ -35,7 +42,13 @@ def initialize_faucet(mint: TokenMint, faucet: Empty[Faucet], signer: Signer, fa
   faucet.owner = signer.key()
 
 @instruction
-def deposit(mint: TokenMint, signer_account: TokenAccount, faucet_account: TokenAccount, signer: Signer, n: u64):
+def deposit(
+  mint: TokenMint, 
+  signer_account: TokenAccount, 
+  faucet_account: TokenAccount, 
+  signer: Signer, 
+  n: u64
+  ):
   signer_account.transfer(
     authority = signer,
     to = faucet_account,
@@ -43,7 +56,10 @@ def deposit(mint: TokenMint, signer_account: TokenAccount, faucet_account: Token
   )
 
 @instruction
-def initialize_withdrawer(signer: Signer, withdrawer: Empty[Withdrawer]):
+def initialize_withdrawer(
+  signer: Signer, 
+  withdrawer: Empty[Withdrawer]
+  ):
   withdrawer = withdrawer.init(
     payer = signer,
     seeds = ['withdrawer', signer]
@@ -51,15 +67,16 @@ def initialize_withdrawer(signer: Signer, withdrawer: Empty[Withdrawer]):
   withdrawer.owner = signer.key()
 
 @instruction
-def withdraw(mint: TokenMint, 
-             withdrawer_account: TokenAccount, 
-             faucet_account: TokenAccount, 
-             faucet: Faucet,
-             n: u64, 
-             withdrawer: Withdrawer,
-             signer: Signer,
-             clock: Clock
-            ):
+def withdraw(
+  mint: TokenMint, 
+  withdrawer_account: TokenAccount, 
+  faucet_account: TokenAccount, 
+  faucet: Faucet,
+  n: u64, 
+  withdrawer: Withdrawer,
+  signer: Signer,
+  clock: Clock
+  ):
   assert mint.key() == faucet.mint, 'The Token mint you are trying to withdraw does not match the faucet mint'
   assert signer.key() == withdrawer.owner, 'You have provided a wrong Withdrawer account'
   timestamp:  i64 = clock.unix_timestamp()            
