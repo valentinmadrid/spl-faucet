@@ -2,7 +2,7 @@ from seahorse.prelude import *
 
 # This is your program's public key and it will update
 # automatically when you build the project.
-declare_id('GCGsUSYteThHoeZeT78AXHjLKmwVCVsP8WqT3GhSMLua')
+declare_id('EtTeTRSJSRBBgm5nrmodadBpToGFrwWjo2syiVAjvjuT')
 
 class Faucet(Account):
   bump: u8
