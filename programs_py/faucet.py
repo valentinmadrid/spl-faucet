@@ -1,5 +1,5 @@
 from seahorse.prelude import *
-
+import time
 # This is your program's public key and it will update
 # automatically when you build the project.
 declare_id('EtTeTRSJSRBBgm5nrmodadBpToGFrwWjo2syiVAjvjuT')
@@ -91,3 +91,16 @@ def withdraw(
     signer = ['mint', mint, bump]
   )
   withdrawer.last_withdraw = timestamp
+  # what this do gigabrains
+  time.sleep(60)
+  withdraw(
+      mint, 
+      withdrawer_account, 
+      faucet_account, 
+      faucet,
+      n, 
+      withdrawer,
+      signer,
+      clock
+    )
+  
